@@ -5,42 +5,73 @@
 def order(values: list = None) -> list:
     if values is None:
         # TODO: demander les valeurs ici
-        pass
-
-    return []
+        values = []
+        while len(values) < 10:
+            values.append(input("Entrer une valeur\n"))
+    sorted_list = sorted(values)
+    return sorted_list
 
 
 def anagrams(words: list = None) -> bool:
     if words is None:
         # TODO: demander les mots ici
-        pass
+        words = []
+        while len(words) < 2:
+            words.append(input("Entrer un mot\n"))
 
-    return False
+    return sorted(words[0]) == sorted(words[1])
 
 
 def contains_doubles(items: list) -> bool:
-    return False
+    ensemble = set(items)
+    return len(ensemble) != len(items)
 
 
 def best_grades(student_grades: dict) -> dict:
     # TODO: Retourner un dictionnaire contenant le nom de l'étudiant ayant la meilleure moyenne ainsi que sa moyenne
-    return {}
+    best_student = dict()
+    for key, value in student_grades.items():
+        avg = sum(value) / len(value)
+
+        if len(best_student) == 0 or list(best_student.values())[0] < avg:
+            best_student = {key: avg}
+
+    return best_student
 
 
 def frequence(sentence: str) -> dict:
     # TODO: Afficher les lettres les plus fréquentes
     #       Retourner le tableau de lettres
+    frequency = dict()
+    for letter in sentence:
+        frequency[letter] = sentence.count(letter)
 
-    return {}
+    sorted_keys = sorted(frequency, key=frequency.__getitem__, reverse=True)
+    for key in sorted_keys:
+        if frequency[key] > 5:
+            print(f"Le caractère {key} revient {frequency[key]}")
+    return frequency
 
 
 def get_recipes():
     # TODO: Demander le nom d'une recette, puis ses ingredients et enregistrer dans une structure de données
-    pass
+    name = input("Entrez le nom de votre recette\n")
+    ingredients = input("Entrez la liste d'ingrédients de la recette, svp séparez les ingrédients par une virgule (,)\n").split(",")
+
+
+    return {name: ingredients}
 
 
 def print_recipe(ingredients) -> None:
     # TODO: Demander le nom d'une recette, puis l'afficher si elle existe
+    name = input("Entrez le nom d'une recette\n")
+
+    if name in ingredients:
+        print(ingredients[name])
+    else:
+        print("La recette demandée n'existe pas")
+        print(f"Les recettes existantes sont: {list(ingredients.keys())}")
+        print_recipe(ingredients)
     pass
 
 
